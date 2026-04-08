@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Kavach - Login</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+    <nav class="glass-nav">
+        <a href="index.html" class="logo" style="margin-bottom: 0;">
+            <i class="ph ph-shield-check"></i>
+            Fasal<span>Kavach</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="register.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <main class="auth-split">
+        <div class="auth-image">
+            <div class="auth-image-content">
+                <h2>Welcome to Smart Farming</h2>
+                <p>Monitor, predict, and grow with the power of artificial intelligence.</p>
+            </div>
+        </div>
+        
+        <div class="auth-form-container">
+            <div class="glass-panel auth-form-box">
+                <h2 class="auth-title">Welcome Back</h2>
+                <p class="auth-subtitle">Log in to your Fasal Kavach dashboard.</p>
+                
+                <form id="loginForm" novalidate>
+                    <div class="form-group floating-container">
+                        <i class="ph ph-envelope form-icon"></i>
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email" class="floating-label">Email Address</label>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="emailError">Please enter a valid email address.</span>
+                    </div>
+                    
+                    <div class="form-group floating-container">
+                        <i class="ph ph-lock form-icon"></i>
+                        <input type="password" id="password" required placeholder=" ">
+                        <label for="password" class="floating-label">Password</label>
+                        <i class="ph ph-eye password-toggle" id="togglePassword"></i>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="passwordError">Password is required.</span>
+                    </div>
+                    
+                    <div class="form-group auth-options">
+                        <label class="remember-me">
+                            <input type="checkbox"> 
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary auth-submit" id="loginBtn">Log In to Dashboard</button>
+                    
+                    <p class="auth-footer">
+                        Don't have an account? <a href="register.html" class="highlight-link">Register here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

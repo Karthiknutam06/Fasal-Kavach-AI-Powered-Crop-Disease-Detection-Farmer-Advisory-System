@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Kavach System - Weather</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+<div class="app-container">
+    <aside class="sidebar">
+        <a href="index.html" class="logo"><i class="ph ph-shield-check"></i> Fasal<span>Kavach</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li><a href="disease-detection.html"><i class="ph ph-scan"></i> Disease Detection</a></li>
+            <li><a href="weather.html" class="active"><i class="ph ph-cloud-sun"></i> Weather Forecast</a></li>
+            <li><a href="crop-recommendation.html"><i class="ph ph-sprout"></i> Crop Recommendation</a></li>
+            <li><a href="yield-prediction.html"><i class="ph ph-chart-line-up"></i> Yield Prediction</a></li>
+            <li><a href="fertilizer.html"><i class="ph ph-flask"></i> Fertilizer Recs</a></li>
+            <li><a href="chatbot.html"><i class="ph ph-robot"></i> Farmer AI Chatbot</a></li>
+        </ul>
+        <div style="margin-top: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="login.html" class="btn btn-primary" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <i class="ph ph-sign-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header" style="text-align: center; margin-bottom: 2rem;">
+            <h1><i class="ph ph-cloud-sun text-secondary"></i> Live Weather & Farming Alert</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto;">Plan your sowing, irrigation, and pesticide application based on hyper-local weather conditions.</p>
+        </header>
+
+        <form id="citySearchForm" style="max-width: 600px; margin: 0 auto 2rem; display: flex; gap: 10px; align-items: flex-start;">
+            <div class="floating-container" style="flex: 1; margin: 0;">
+                <i class="ph ph-map-pin form-icon"></i>
+                <input type="text" id="cityInput" placeholder=" " autocomplete="off" required>
+                <label for="cityInput" class="floating-label">Enter city name (e.g., Delhi, London)...</label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="padding: 1rem 1.5rem; display: flex; align-items: center; gap: 8px; height: 3.5rem;">
+                <i class="ph ph-magnifying-glass"></i> Search
+            </button>
+        </form>
+
+        <section style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+            <!-- Main Live Card -->
+            <div class="glass-panel" style="flex: 1; min-width: 300px; max-width: 400px; padding: 3rem; text-align: center; background: linear-gradient(135deg, rgba(8, 28, 21, 0.9) 0%, rgba(27, 67, 50, 0.7) 100%); position: relative; overflow: hidden;">
+                <!-- Decorative sun element -->
+                <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: var(--warning); filter: blur(60px); opacity: 0.3; border-radius: 50%;"></div>
+                
+                <h3 id="locationName" style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 1rem;">Fetching Location...</h3>
+                <i id="weatherIcon" class="ph-fill ph-cloud-sun" style="font-size: 8rem; color: var(--warning); text-shadow: 0 10px 20px rgba(255, 183, 3, 0.3);"></i>
+                <h1 id="tempDisplay" style="font-size: 4rem; margin: 1rem 0;">--°C</h1>
+                <h2 id="descDisplay" style="font-size: 1.5rem; color: var(--accent-color);">Loading...</h2>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                    <div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Humidity</p>
+                        <p id="humidityDisplay" style="font-weight: 600; font-size: 1.1rem;">--%</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Wind Speed</p>
+                        <p id="windDisplay" style="font-weight: 600; font-size: 1.1rem;">-- km/h</p>
+                    </div>
+                    <div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Rain Prob.</p>
+                        <p style="font-weight: 600; font-size: 1.1rem;">--%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights / Actions Card -->
+            <div style="flex: 1; min-width: 300px; max-width: 500px; display: flex; flex-direction: column; gap: 1rem;">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="color: var(--secondary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph ph-drop"></i> Irrigation Advice</h3>
+                    <p style="line-height: 1.6;">Soil moisture is adequate. No immediate irrigation is required. Check back in 2 days as temperatures are expected to rise.</p>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="color: var(--warning); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph ph-bug"></i> Spraying Feasibility</h3>
+                    <p style="line-height: 1.6;">Wind speeds are optimal for pesticide application today. Do not spray if wind exceeds 15 km/h.</p>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;"><i class="ph ph-calendar-blank"></i> 3-Day Outline</h3>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li style="display: flex; justify-content: space-between; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);"><span>Tomorrow</span> <span style="color: var(--warning);">30°C / Sunny</span></li>
+                        <li style="display: flex; justify-content: space-between; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);"><span>Wednesday</span> <span style="color: var(--warning);">31°C / Sunny</span></li>
+                        <li style="display: flex; justify-content: space-between;"><span>Thursday</span> <span style="color: #48CAE4;">26°C / Rain</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="js/weather.js"></script>
+</body>
+</html>

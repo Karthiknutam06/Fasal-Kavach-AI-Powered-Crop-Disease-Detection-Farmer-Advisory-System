@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Kavach System - Yield Prediction</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+    <style>
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <aside class="sidebar">
+        <a href="index.html" class="logo"><i class="ph ph-shield-check"></i> Fasal<span>Kavach</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li><a href="disease-detection.html"><i class="ph ph-scan"></i> Disease Detection</a></li>
+            <li><a href="weather.html"><i class="ph ph-cloud-sun"></i> Weather Forecast</a></li>
+            <li><a href="crop-recommendation.html"><i class="ph ph-sprout"></i> Crop Recommendation</a></li>
+            <li><a href="yield-prediction.html" class="active"><i class="ph ph-chart-line-up"></i> Yield Prediction</a></li>
+            <li><a href="fertilizer.html"><i class="ph ph-flask"></i> Fertilizer Recs</a></li>
+            <li><a href="chatbot.html"><i class="ph ph-robot"></i> Farmer AI Chatbot</a></li>
+        </ul>
+        <div style="margin-top: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="login.html" class="btn btn-primary" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <i class="ph ph-sign-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header" style="text-align: center; margin-bottom: 2rem;">
+            <h1><i class="ph ph-chart-line-up text-secondary"></i> Crop Yield Prediction</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto;">Anticipate your harvest. Feed the model your location and crop details to predict total seasonal yield in tons.</p>
+        </header>
+
+        <section style="display: flex; justify-content: center;">
+            <div class="glass-panel" style="width: 100%; max-width: 800px; padding: 3rem;">
+                <form id="yieldForm" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group floating-container">
+                            <i class="ph ph-plant form-icon"></i>
+                            <select id="cropType" required>
+                                <option value="" disabled selected></option>
+                                <option value="rice">Rice / Paddy</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="maize">Maize</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="sugarcane">Sugarcane</option>
+                            </select>
+                            <label for="cropType" class="floating-label">Crop Type</label>
+                            <i class="ph ph-caret-down" style="position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); color: #888; pointer-events: none;"></i>
+                            <span class="error-message">Please select a crop.</span>
+                        </div>
+                        <div class="form-group floating-container">
+                            <i class="ph ph-cloud-sun form-icon"></i>
+                            <select id="season" required>
+                                <option value="" disabled selected></option>
+                                <option value="kharif">Kharif (Monsoon)</option>
+                                <option value="rabi">Rabi (Winter)</option>
+                                <option value="zaid">Zaid (Summer)</option>
+                            </select>
+                            <label for="season" class="floating-label">Season</label>
+                            <i class="ph ph-caret-down" style="position: absolute; right: 1.1rem; top: 50%; transform: translateY(-50%); color: #888; pointer-events: none;"></i>
+                            <span class="error-message">Please select a season.</span>
+                        </div>
+                        <div class="form-group floating-container">
+                            <i class="ph ph-map-pin form-icon"></i>
+                            <input type="number" id="area" required placeholder=" ">
+                            <label for="area" class="floating-label">Area (in Hectares)</label>
+                            <i class="ph ph-check-circle success-icon"></i>
+                            <i class="ph ph-x-circle error-icon"></i>
+                            <span class="error-message">Area is required and must be greater than 0.</span>
+                        </div>
+                        <div class="form-group floating-container">
+                            <i class="ph ph-cloud-rain form-icon"></i>
+                            <input type="number" id="rainfall" required placeholder=" ">
+                            <label for="rainfall" class="floating-label">Average Rainfall (mm)</label>
+                            <i class="ph ph-check-circle success-icon"></i>
+                            <i class="ph ph-x-circle error-icon"></i>
+                            <span class="error-message">Rainfall data is required.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="yieldBtn" style="width: 100%; margin-top: 2rem; font-size: 1.1rem;">Predict Yield</button>
+                </form>
+
+                <div id="yieldResult" style="display: none; margin-top: 3rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">Estimated Total Production:</p>
+                    <h2 id="predictedYield" style="font-size: 3.5rem; color: var(--success); margin: 1rem 0; text-shadow: 0 0 20px rgba(42, 157, 143, 0.4);">
+                        0.00 Tons
+                    </h2>
+                    <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="ph ph-info"></i> Based on historical data modeling and inputs.
+                    </p>
+                    <button class="btn" id="recalculateBtn" style="margin-top: 2rem; background: rgba(255,255,255,0.1); color: white;">Recalculate</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="js/yield.js"></script>
+</body>
+</html>

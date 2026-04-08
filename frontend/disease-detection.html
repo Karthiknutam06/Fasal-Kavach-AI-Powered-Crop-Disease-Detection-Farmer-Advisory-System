@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Kavach System - Disease Detection</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="ph ph-shield-check"></i> Fasal<span>Kavach</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+            <li><a href="disease-detection.html" class="active"><i class="ph ph-scan"></i> Disease Detection</a></li>
+            <li><a href="weather.html"><i class="ph ph-cloud-sun"></i> Weather Forecast</a></li>
+            <li><a href="crop-recommendation.html"><i class="ph ph-sprout"></i> Crop Recommendation</a></li>
+            <li><a href="yield-prediction.html"><i class="ph ph-chart-line-up"></i> Yield Prediction</a></li>
+            <li><a href="fertilizer.html"><i class="ph ph-flask"></i> Fertilizer Recs</a></li>
+            <li><a href="chatbot.html"><i class="ph ph-robot"></i> Farmer AI Chatbot</a></li>
+        </ul>
+        <div style="margin-top: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="login.html" class="btn btn-primary" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <i class="ph ph-sign-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="dashboard-header" style="text-align: center; margin-bottom: 2rem;">
+            <h1><i class="ph ph-scan text-secondary"></i> AI Crop Disease Scan</h1>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto;">Upload a clear picture of the plant leaf. Our AI model will detect potential diseases and provide actionable precautions instantly.</p>
+        </header>
+
+        <!-- Use previous detection layout content inside main -->
+        <section style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+            <div class="glass-panel" id="uploadArea" style="width: 100%; max-width: 600px; padding: 4rem 2rem; border: 2px dashed rgba(255, 255, 255, 0.3); text-align: center; cursor: pointer; transition: all 0.3s ease; border-radius: 20px;">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <i class="ph ph-upload-simple" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 0.5rem;">Click to upload or Drag & Drop</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Supported formats: JPEG, PNG, JPG</p>
+            </div>
+
+            <div id="previewContainer" class="glass-panel" style="display: none; width: 100%; max-width: 600px; padding: 1.5rem; text-align: center;">
+                <img id="imagePreview" src="" alt="Preview" style="max-width: 100%; max-height: 300px; border-radius: 12px; margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn" id="retakeBtn" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">Choose Another</button>
+                    <button class="btn btn-primary" id="analyzeBtn">Analyze Leaf</button>
+                </div>
+            </div>
+
+            <div id="loader" class="glass-panel" style="display: none; width: 100%; max-width: 600px; padding: 3rem; text-align: center;">
+                <div class="scan-animation">
+                    <i class="ph ph-scan" style="font-size: 5rem; color: var(--secondary-color); animation: pulse 1.5s infinite;"></i>
+                </div>
+                <h3 style="margin-top: 1rem; color: var(--accent-color);">Analyzing Leaf Patterns...</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Checking against Fasal Kavach knowledge base</p>
+            </div>
+
+            <div id="resultContainer" class="glass-panel" style="display: none; width: 100%; max-width: 800px; padding: 2rem;">
+                <h2 style="color: var(--warning); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="ph-fill ph-warning-circle"></i> Detection Result
+                </h2>
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start;">
+                    <div>
+                        <div class="result-badge" style="background: rgba(230, 57, 70, 0.2); border: 1px solid var(--danger); padding: 1rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
+                            <h4 style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase;">Disease</h4>
+                            <h3 id="diseaseName" style="color: var(--danger); margin-top: 0.5rem; font-size: 1.5rem;">Late Blight</h3>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; text-align: center;">
+                            <h4 style="color: var(--text-secondary); font-size: 0.9rem;">Confidence Score</h4>
+                            <h3 id="confidenceScore" style="color: var(--warning); margin-top: 0.5rem; font-size: 1.8rem;">98.5%</h3>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="ph ph-shield-check"></i> Recommended Precautions
+                        </h3>
+                        <ul id="precautionsList" style="list-style-position: inside; color: var(--text-primary); display: flex; flex-direction: column; gap: 0.8rem; line-height: 1.5;">
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" id="scanAgainBtn">New Scan</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(82, 183, 136, 0.7); }
+            50% { transform: scale(1.1); opacity: 0.7; text-shadow: 0 0 20px rgba(82, 183, 136, 0); }
+            100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(82, 183, 136, 0); }
+        }
+        #uploadArea:hover {
+            border-color: var(--secondary-color);
+            background: rgba(82, 183, 136, 0.1);
+            transform: translateY(-5px);
+        }
+    </style>
+    <script src="js/detection.js"></script>
+</body>
+</html>

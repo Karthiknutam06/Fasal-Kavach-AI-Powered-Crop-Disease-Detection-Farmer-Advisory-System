@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Kavach - Register</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+
+    <nav class="glass-nav">
+        <a href="index.html" class="logo" style="margin-bottom: 0;">
+            <i class="ph ph-shield-check"></i>
+            Fasal<span>Kavach</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Log In</a></li>
+        </ul>
+    </nav>
+
+    <main class="auth-split">
+        <div class="auth-image register-image">
+            <div class="auth-image-content">
+                <h2>Join the Revolution</h2>
+                <p>Create an account to protect your crops and maximize your yield.</p>
+            </div>
+        </div>
+        
+        <div class="auth-form-container">
+            <div class="glass-panel auth-form-box">
+                <h2 class="auth-title">Create Account</h2>
+                <p class="auth-subtitle">Sign up to get started.</p>
+                
+                <form id="registerForm" novalidate>
+                    <div class="form-group floating-container">
+                        <i class="ph ph-user form-icon"></i>
+                        <input type="text" id="fullname" required placeholder=" ">
+                        <label for="fullname" class="floating-label">Full Name</label>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="nameError">Full name is required.</span>
+                    </div>
+
+                    <div class="form-group floating-container">
+                        <i class="ph ph-envelope form-icon"></i>
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email" class="floating-label">Email Address</label>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="emailError">Please enter a valid email address.</span>
+                    </div>
+                    
+                    <div class="form-group floating-container">
+                        <i class="ph ph-lock form-icon"></i>
+                        <input type="password" id="password" required placeholder=" ">
+                        <label for="password" class="floating-label">Password</label>
+                        <i class="ph ph-eye password-toggle" id="togglePassword"></i>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="passwordError">Min 8 chars, 1 uppercase, 1 number.</span>
+                    </div>
+
+                    <div class="form-group floating-container">
+                        <i class="ph ph-shield-check form-icon"></i>
+                        <input type="password" id="confirmPassword" required placeholder=" ">
+                        <label for="confirmPassword" class="floating-label">Confirm Password</label>
+                        <i class="ph ph-eye password-toggle" id="toggleConfirmPassword"></i>
+                        <i class="ph ph-check-circle success-icon"></i>
+                        <i class="ph ph-x-circle error-icon"></i>
+                        <span class="error-message" id="confirmPasswordError">Passwords do not match.</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary auth-submit" id="registerBtn">Create Account</button>
+                    
+                    <p class="auth-footer">
+                        Already have an account? <a href="login.html" class="highlight-link">Log In</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
